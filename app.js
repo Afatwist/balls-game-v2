@@ -121,11 +121,14 @@ class Interface {
 	static restartBtnListener() {
 		const restartBtn = document.querySelector('.restart-btn')
 		restartBtn.addEventListener('click', () => {
-			this.cellsEnable()
-			this.ballsTotalRemover()
-			restartBtn.remove()
-			InfoUpdater.refresh()
-			Game.start()
+			if (confirm('Вы уверены? Текущая игра будет уничтожена!')) {
+				this.cellsEnable()
+				this.ballsTotalRemover()
+				restartBtn.remove()
+				InfoUpdater.refresh()
+				Game.start()
+			}
+
 		})
 	}
 
@@ -150,8 +153,10 @@ class Interface {
 	static changeSettingsBtnListener() {
 		const changeSettingsBtn = document.querySelector('.change-settings-btn')
 		changeSettingsBtn.addEventListener('click', () => {
-			const displaySettings = document.querySelector('.settings')
-			displaySettings.classList.remove('up')
+			if (confirm('Вы уверены? Текущая игра будет уничтожена!')) {
+				const displaySettings = document.querySelector('.settings')
+				displaySettings.classList.remove('up')
+			}
 		})
 	}
 
