@@ -1,0 +1,452 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Sofia+Sans+Condensed:wght@500&display=swap');
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #424242;
+	font-family: 'Sofia Sans Condensed', 'Roboto Slab', sans-serif;
+	font-size: 24px;
+	color: #deb887;
+	overflow: hidden;
+}
+
+.display {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	width: 100vw;
+	transition: margin 0.5s ease-out;
+}
+
+.display.up {
+	margin-top: -100vh;
+	transition: margin-top 2s;
+}
+
+.btn {
+	font-size: inherit;
+	background: #552f1e;
+	color: inherit;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+@media (max-width: 800px) {
+	.btn {
+		font-size: 6vw;
+		padding: 2vw;
+		border-radius: 7%;
+
+	}
+}
+
+.btn:hover {
+	opacity: 0.8;
+}
+
+@media (max-width: 800px) {
+	.start-btn {
+		width: 40vw;
+		height: 7vh;
+	}
+}
+
+/* Экран приветствия */
+
+.welcome-text {
+	background: #552f1e;
+	width: 800px;
+	padding: 15px;
+	font-size: 26px;
+	margin-bottom: 20px;
+	overflow-y: auto;
+}
+
+.welcome-text h1,
+p {
+	margin-bottom: 15px;
+}
+
+@media (max-width: 800px) {
+	.welcome-text {
+		width: 95vw;
+		max-height: 90vh;
+		padding: 2vw;
+		font-size: 5vw;
+		margin-bottom: 1vw;
+	}
+
+	.welcome-text h1,
+	p {
+		margin-bottom: 2vw;
+	}
+
+	.welcome-text h1 {
+		font-size: 7vw;
+	}
+}
+
+
+/*  Экран настроек игры */
+.settings-block {
+	background: #552f1e;
+	width: 800px;
+	padding: 15px;
+	font-size: 26px;
+	margin-bottom: 20px;
+	overflow-y: auto;
+}
+
+/* .settings-input {
+	background: #552f1e;
+	width: 800px;
+	padding: 15px;
+	font-size: 26px;
+} */
+
+.radio {
+	display: inline-block;
+	margin-left: 25px;
+}
+
+.radio input {
+	margin-right: 5px;
+}
+
+.generate-btn {
+	margin-top: 25px;
+}
+
+.game-load-btn {
+	margin-top: 25px;
+}
+
+@media (max-width: 800px) {
+	.settings-block {
+		width: 95vw;
+		max-height: 90vh;
+		padding: 2vw;
+		font-size: 5vw;
+		margin-bottom: 1vh;
+	}
+
+	.settings-input {
+		margin-bottom: 1vh;
+	}
+
+	.settings-input span {
+		display: block;
+		margin-bottom: 0.7vh;
+	}
+
+	.radio {
+		display: inline-block;
+		margin-left: 3vw;
+	}
+
+	.radio input {
+		margin-right: 5px;
+	}
+
+	.generate-btn,
+	.game-load-btn {
+		margin-top: 2vh;
+		margin-left: 3vw;
+	}
+}
+
+/* Экран игры */
+.header-block {
+	display: flex;
+}
+
+.info-block {
+	background: #552f1e;
+	margin-top: 1vh;
+	margin-bottom: 2vh;
+	border-radius: 15px;
+}
+
+.info-row {
+	display: flex;
+	justify-content: left;
+	width: 25vw;
+	column-gap: 1vw;
+	padding-left: 1vw;
+	padding-top: 1vh;
+}
+
+.info-row:last-child {
+	padding-bottom: 1vh;
+}
+
+.menu-btn {
+	width: 5vw;
+	height: 50%;
+	margin: auto;
+	margin-left: 1.5vw;
+}
+
+@media (max-width: 800px) {
+	.header-block {
+		display: flex;
+		justify-content: center;
+		width: 95vw;
+	}
+
+	.info-block {
+		margin-top: 1vh;
+		margin-bottom: 2vh;
+		width: 75vw;
+		padding: 1vw;
+	}
+
+	.info-row {
+		display: flex;
+		justify-content: left;
+		column-gap: 5vw;
+
+		padding-left: 1vw;
+		padding-top: 1vh;
+		width: 100%;
+	}
+
+	.info-row:last-child {
+		padding-bottom: 1vh;
+	}
+}
+
+.menu-btn {
+	width: 5vw;
+	height: 50%;
+	margin: auto;
+	margin-left: 1.5vw;
+}
+
+.menu-drop-down-btn {
+	width: 200px;
+	height: 100px;
+	position: absolute;
+	display: block;
+	z-index: 100;
+}
+
+.restart-btn {
+	margin-bottom: 15%;
+}
+
+.change-settings-btn {
+	margin: auto;
+}
+
+.game-save-btn {
+	margin-top: 15%;
+}
+
+@media (max-width: 800px) {
+	.menu-btn {
+		width: 15vw;
+		height: 50%;
+		margin: auto;
+		margin-left: 1.5vw;
+	}
+
+	.menu-drop-down-btn {
+		width: 50vw;
+		height: 20vw;
+		position: absolute;
+		display: block;
+		z-index: 100;
+	}
+
+	.restart-btn {
+		margin-bottom: 50%;
+	}
+
+	.change-settings-btn {
+		margin: auto;
+	}
+
+	.game-save-btn {
+		margin-top: 50%;
+	}
+}
+
+.board {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.board-row {
+	display: flex;
+}
+
+.cell {
+	border: 1px solid #3f4149;
+	background-color: #988480;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@media (max-width: 800px) {
+	.board {
+		width: 99vw;
+		height: 99vw;
+	}
+
+	.board-row {
+		flex-grow: 1;
+		width: 99vw;
+		height: auto;
+	}
+
+	.cell {
+		flex-grow: 1;
+		width: auto;
+		height: auto;
+	}
+}
+
+.cell-disable {
+	pointer-events: none;
+	opacity: 20%;
+	transition: opacity 1.5s;
+}
+
+.ball {
+	width: 35px;
+	height: 35px;
+	border-radius: 100%;
+	cursor: grab;
+}
+
+@media (max-width: 800px) {
+	.ball {
+		width: 60%;
+		height: 60%;
+	}
+}
+
+.active-ball {
+	animation: active-ball-anim 1.5s linear infinite alternate;
+}
+
+@keyframes active-ball-anim {
+	0% {
+		transform: translateY(20px) scale(1.2, 0.5)
+	}
+
+	10% {
+		transform: translateY(15px) scale(1.2, 0.6)
+	}
+
+	20% {
+		transform: translateY(10px) scale(1.1, 0.8)
+	}
+
+	30% {
+		transform: translateY(5px) scale(1, 0.9)
+	}
+
+	40% {
+		transform: translateY(3px) scale(1, 1.1)
+	}
+
+	50% {
+		transform: translateY(0) scale(0.9, 1.2)
+	}
+
+	60% {
+		transform: translateY(-3px) scale(1, 1.1)
+	}
+
+	70% {
+		transform: translateY(-5px) scale(1, 0.9)
+	}
+
+	80% {
+		transform: translateY(-10px) scale(1.1, 0.8)
+	}
+
+	90% {
+		transform: translateY(-15px) scale(1.2, 0.6)
+	}
+
+	100% {
+		transform: translateY(-20px) scale(1.2, 0.5)
+	}
+}
+
+@media (max-width: 800px) {
+	@keyframes active-ball-anim {
+		0% {
+			transform: translateY(60%) scale(1.2, 0.5)
+		}
+
+		10% {
+			transform: translateY(50%) scale(1.2, 0.6)
+		}
+
+		20% {
+			transform: translateY(40%) scale(1.1, 0.8)
+		}
+
+		30% {
+			transform: translateY(30%) scale(1, 0.9)
+		}
+
+		40% {
+			transform: translateY(20%) scale(1, 1.1)
+		}
+
+		50% {
+			transform: translateY(0) scale(0.9, 1.2)
+		}
+
+		60% {
+			transform: translateY(-20%) scale(1, 1.1)
+		}
+
+		70% {
+			transform: translateY(-30%) scale(1, 0.9)
+		}
+
+		80% {
+			transform: translateY(-40%) scale(1.1, 0.8)
+		}
+
+		90% {
+			transform: translateY(-50%) scale(1.2, 0.6)
+		}
+
+		100% {
+			transform: translateY(-60%) scale(1.2, 0.5)
+		}
+	}
+}
+
+.way-marker {
+	width: 20px;
+	height: 20px;
+	border-radius: 100%;
+}
+
+@media (max-width: 800px) {
+	.way-marker {
+		width: 30%;
+		height: 30%;
+	}
+}

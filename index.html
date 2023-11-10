@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<script src="app.js" defer></script>
+	<title>Шарики</title>
+</head>
+
+<body>
+	<div class="display welcome up">
+		<div class="welcome-text">
+			<h1>Добро пожаловать в игру!</h1>
+			<p>Ваша цель не дать игровому полю заполнится шариками</p>
+			<p>Для этого из шариков одного цвета необходимо составлять фигуры</p>
+			<p>Фигуры могут быть прямой линией в 3, 4, 5 шариков, блоком 2х2 шарика, а так же их сочетаниями</p>
+			<p>За каждую фигуру начисляются очки, чем больше фигур и шариков, тем больше очков вы получите</p>
+			<p>После каждого хода на поле появляются новые шарики случайного цвета, если поле полностью заполнится, игра
+				завершится</p>
+			<p>Для выбора шарика кликните по нему мышкой, а потом по клетке, на которую необходимо переместить шарик.
+				Если в клетке уже есть шарик, то они поменяются местами.
+				Главное условие: от шарика до целевой клетки должен быть путь из свободных клеток, которые соприкасаются
+				гранями!</p>
+		</div>
+		<div>
+			<button class="btn start-btn">Начать игру</button>
+		</div>
+	</div>
+
+	<div class="display settings">
+		<div class="settings-block">
+			<div class="settings-input">
+				<span>Выберите размер поля</span>
+				<div class="radio">
+					<input type="radio" name="board-size" id="size-8x8" value="8" checked>
+					<label for="size-8x8">8x8</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="board-size" id="size-9x9" value="9">
+					<label for="size-9x9">9x9</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="board-size" id="size-10x10" value="10">
+					<label for="size-10x10">10x10</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="board-size" id="size-11x11" value="11">
+					<label for="size-11x11">11x11</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="board-size" id="size-12x12" value="12">
+					<label for="size-12x12">12x12</label>
+				</div>
+			</div>
+
+			<div class="settings-input">
+				<span>Выберите количество цветов</span>
+				<div class="radio">
+					<input type="radio" name="colors-count" id="color-6" value="6" checked>
+					<label for="color-6">6</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="colors-count" id="color-7" value="7">
+					<label for="color-7">7</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="colors-count" id="color-8" value="8">
+					<label for="color-8">8</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="colors-count" id="color-9" value="9">
+					<label for="color-9">9</label>
+				</div>
+			</div>
+
+			<div class="settings-input">
+				<span>Разрешить диагональные линии?</span>
+				<div class="radio">
+					<input type="radio" name="diagonal-lines" id="diagonal-true" value="true" checked>
+					<label for="diagonal-true">Да</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="diagonal-lines" id="diagonal-false" value="false">
+					<label for="diagonal-false">Нет</label>
+				</div>
+			</div>
+
+			<div class="settings-input">
+				<span>Разрешить перемещение шарика по диагонали?</span>
+				<div class="radio">
+					<input type="radio" name="diagonal-moving" id="diagonal-moving-true" value="true">
+					<label for="diagonal-moving-true">Да</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="diagonal-moving" id="diagonal-moving-false" value="false" checked>
+					<label for="diagonal-moving-false">Нет</label>
+				</div>
+			</div>
+
+			<div class="settings-input">
+				<span>Сколько шариков выбрасывать за один раз?</span>
+				<div class="radio">
+					<input type="radio" name="balls-count" id="render-3" value="3" checked>
+					<label for="render-3">3</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="balls-count" id="render-4" value="4">
+					<label for="render-4">4</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="balls-count" id="render-5" value="5">
+					<label for="render-5">5</label>
+				</div>
+			</div>
+
+			<div class="settings-input">
+				<span>Когда выбрасывать шарики?</span>
+				<div class="radio">
+					<input type="radio" name="balls-rendering" id="make-every-moving" value="every-moving" checked>
+					<label for="make-every-moving">После каждого хода</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="balls-rendering" id="make-without-figures" value="without-figures">
+					<label for="make-without-figures">Если не удалось составить фигуру</label>
+				</div>
+			</div>
+
+			<div class="settings-input">
+				<span>Путь от шарика к цели (влияет только на отрисовку пути, не меняя
+					сложность)</span>
+				<div class="radio">
+					<input type="radio" name="way-marking" id="way-shortest" value="shortest" checked>
+					<label for="way-shortest">Кратчайший</label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="way-marking" id="way-humanoid" value="humanoid">
+					<label for="way-humanoid">Человеческий :)</label>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<button class="btn generate-btn">Сгенерировать поле</button>
+			<button class="btn game-load-btn">Загрузить игру</button>
+		</div>
+	</div>
+
+	<div class="display game">
+		<div class="header-block">
+			<div class="info-block">
+				<div class="info-row">
+					<div class="info">Очки: <span class="scores">0</span></div>
+					<div class="info">Фигур сложено: <span class="figure-complete">0</span></div>
+				</div>
+				<div class="info-row">
+					<div class="info">Ходы: <span class="moves">0</span></div>
+					<div class="info">Серия удачных ходов: <span class="series">0</span></div>
+				</div>
+				<div class="info-row">
+					<div class="info">Свободных клеток: <span class="free-cells">0</span></div>
+				</div>
+			</div>
+
+			<button class="btn menu-btn" title="Меню">M</button>
+
+		</div>
+		<div class="board"></div>
+	</div>
+</body>
+
+</html>
