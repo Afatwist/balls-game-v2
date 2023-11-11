@@ -10,6 +10,21 @@ class Interface {
 	 */
 	static #isNewGame
 
+	/** индикатор видимости меню кнопок
+	 * @type {boolean}
+	 * - true - меню видно
+	 * - false - меню не видно
+	 */
+	static #isMenuVisible = false
+
+	/** 
+	 * @type {IntersectionObserver}
+	 */
+	static #observer
+
+	static #isNotListening = true
+
+
 	/** Экран Welcome.
 	 * Обработчик для кнопки "Начать игру" */
 	static screenWelcome() {
@@ -58,52 +73,56 @@ class Interface {
 	static screenGame() {
 		const displayGame = document.querySelector('.game')
 
-		const observer = new IntersectionObserver(entries => {
+		this.#observer = new IntersectionObserver(entries => {
 			// Отработает после того, как displayGame начнет появляться на экране
 			if (entries[0].isIntersecting) {
 				if (this.#isNewGame) {
 					Game.start()
 				}
 
+				this.#isMenuVisible = false
 				Game.process()
 				this.menuBtnListener()
 			}
 		}, { threshold: 0.2 })
 
-		observer.observe(displayGame)
+		this.#observer.observe(displayGame)
 	}
 
 	/** Обработчик событий для кнопки "Меню" */
 	static menuBtnListener() {
-		let isClick = false
+
 		const menuBtn = document.querySelector('.menu-btn')
-		menuBtn.addEventListener('click', () => {
+		if (this.#isNotListening) {
+			this.#isNotListening = false
+			menuBtn.addEventListener('click', () => {
 
-			if (isClick) {
-				isClick = false
+				if (this.#isMenuVisible) {
+					this.#isMenuVisible = false
 
-				this.restartBtnRemover()
-				this.changeSettingsBtnRemover()
-				this.gameSaveBtnRemover()
+					this.restartBtnRemover()
+					this.changeSettingsBtnRemover()
+					this.gameSaveBtnRemover()
 
-				if (InfoUpdater.freeCells !== 0) {
-					this.cellsEnable()
+					if (InfoUpdater.freeCells !== 0) {
+						this.cellsEnable()
+					}
+
+				} else {
+					this.#isMenuVisible = true
+
+					this.cellsDisable()
+
+					this.restartBtnCreator()
+					this.changeSettingsBtnCreator()
+					this.gameSaveBtnCreator()
+
+					this.restartBtnListener()
+					this.changeSettingsBtnListener()
+					this.gameSaveBtnListener()
 				}
-
-			} else {
-				isClick = true
-
-				this.cellsDisable()
-
-				this.restartBtnCreator()
-				this.changeSettingsBtnCreator()
-				this.gameSaveBtnCreator()
-
-				this.restartBtnListener()
-				this.changeSettingsBtnListener()
-				this.gameSaveBtnListener()
-			}
-		})
+			},)
+		}
 	}
 
 	/** Генерирует кнопку "Рестарт" */
@@ -122,11 +141,13 @@ class Interface {
 		const restartBtn = document.querySelector('.restart-btn')
 		restartBtn.addEventListener('click', () => {
 			if (confirm('Вы уверены? Текущая игра будет уничтожена!')) {
-				this.cellsEnable()
-				this.ballsTotalRemover()
-				restartBtn.remove()
+				/* 	this.cellsEnable()
+					this.ballsTotalRemover()*/
 				InfoUpdater.refresh()
-				Game.start()
+
+				this.#isMenuVisible = false
+				this.#observer.disconnect()
+				this.screenGame()
 			}
 
 		})
@@ -156,6 +177,10 @@ class Interface {
 			if (confirm('Вы уверены? Текущая игра будет уничтожена!')) {
 				const displaySettings = document.querySelector('.settings')
 				displaySettings.classList.remove('up')
+
+				this.#isMenuVisible = false
+				this.#observer.disconnect()
+				this.screenGame()
 			}
 		})
 	}
@@ -280,8 +305,6 @@ class Settings {
 		this.ballsRendering = this.#getBallsRendering()
 
 		this.wayMarking = this.#getWayMarking()
-
-		console.log(this.boardSize, this.colorsCount, this.diagonalLines, this.diagonalMoving, this.ballsCount, this.ballsRendering, this.wayMarking)
 	}
 
 	/** Загрузка настроек из сохраненных данных
@@ -907,9 +930,7 @@ class BallsRender {
 			const ball = this.#getBall()
 			ball.style.background = ballData.color
 			cell.append(ball)
-			console.log(ballData, cell, ball)
 		}
-
 	}
 }
 
@@ -1013,9 +1034,7 @@ class WayChecker {
 	static marking(way, ms) {
 		this.#marksMake(way)
 
-		setTimeout(() => {
-			WayChecker.#marksClear()
-		}, ms)
+		setTimeout(WayChecker.marksClear, ms)
 	}
 
 	/** Маркировка пути между активной и целевой клетками
@@ -1039,7 +1058,7 @@ class WayChecker {
 	}
 
 	/** Очистка маркеров пути */
-	static #marksClear() {
+	static marksClear() {
 		const markers = document.querySelectorAll('.way-marker')
 		markers.forEach(marker => marker.remove())
 	}
